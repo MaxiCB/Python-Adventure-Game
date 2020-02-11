@@ -1,26 +1,27 @@
 # Write a class to hold player information
 # Players should have inventory?, current room, name?
 
+
 class Player:
-    def __init__(self, currentRoom):
-        self.currentRoom = currentRoom
+    def __init__(self, current_room):
+        self.currentRoom = current_room
         self.inventory = []
 
-    def changeRoom(self, newRoom):
-        self.currentRoom = newRoom
+    def changeRoom(self, new_room):
+        self.currentRoom = new_room
 
     def addItem(self, item):
         self.inventory.append(item)
     
     def dropItem(self, item):
         if len(self.inventory) > 0:
-            itemIndex = -1
+            item_index = -1
             for index, player_item in enumerate(self.inventory):
                 if player_item.name.lower() == item:
-                    itemIndex = index
-            if itemIndex > -1:
-                droppedItem = self.inventory.pop(itemIndex)
-                return droppedItem
+                    item_index = index
+            if item_index > -1:
+                dropped_item = self.inventory.pop(item_index)
+                return dropped_item
             else:
                 return False
         else:

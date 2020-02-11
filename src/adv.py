@@ -2,26 +2,40 @@
 
 from player import Player
 from item import Item
+from treasures import Treasure
 from room import Room
+from light import LightSource
+
+light = {
+    'torch': LightSource('Torch', 'This may prove useful', 'Un-Common', '2', False),
+}
+new_light = light['torch']
+print(f'Light Item: {new_light.print_light()}\n')
+
+treasure = {
+    'coin': Treasure('Coin', 'A shiny coin', 'Common', 3.0)
+}
+
+new_treasure = treasure['coin']
+print(f'Treasure Item: {new_treasure.print_treasure()}\n')
 
 item = {
-    'torch':    Item('Torch', 'This may prove useful', 'Un-Common'),
-    'lighter':    Item('Lighter', 'Maybe we can just burn the place down', 'Common'),
-    'skull':    Item('Skull', 'Well this makes me uncomfortable', 'Common'),
+    'skull': Item('Skull', 'Well this makes me uncomfortable', 'Common'),
+    'lighter': Item('Lighter', 'Maybe we can just burn the place down', 'Common'),
 }
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", [item['torch'], item['skull']]),
+    'outside': Room("Outside Cave Entrance",
+                    "North of you, the cave mount beckons", [item['skull'], item['lighter'], treasure['coin']]),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
+    'foyer': Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm."""),
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
+    'narrow': Room("Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
@@ -40,12 +54,12 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-
 # Create a new player
 # Place player in 'Outside' room
 
 currentRoom = room['outside']
 character = Player(currentRoom)
+
 
 # Write a loop
 # * Prints current room name
@@ -63,12 +77,16 @@ def showRoomInfo():
     print(f'Room Description: {currentRoom.description}')
     print(f'Room Items: {currentRoom.printItems()}\n')
 
+
 playing = True
 
 # Can add print's here to mak the game more polished
 
-while(playing):
-    request = input('[N]-North [S]-South [E]-East [W]-West [I]-Room Info [B]-Backpack [T <Item>]-Take Item [D <Item>]-Drop Item  [Q]-Quit\n\n').lower().split(' ')
+while playing:
+    request = input(
+        '[N]-North [S]-South [E]-East [W]-West [I]-Room Info [B]-Backpack [T <Item>]-Take Item [D <Item>]-Drop Item  '
+        '[Q]-Quit\n\n').lower().split(
+        ' ')
 
     if len(request) == 1:
         if request[0] == 'q':
@@ -116,7 +134,7 @@ while(playing):
                 # Need to add item to character inventory
                 character.addItem(takenItem)
                 print(f'\n{takenItem} has been picked up!')
-            else: 
+            else:
                 print('Invalid input')
         elif request[0] == 'drop':
             droppedItem = character.dropItem(request[1])
