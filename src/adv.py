@@ -63,13 +63,12 @@ def showRoomInfo():
     print(f'Room Description: {currentRoom.description}')
     print(f'Room Items: {currentRoom.printItems()}\n')
 
-
 playing = True
 
 # Can add print's here to mak the game more polished
 
 while(playing):
-    request = input('[N] North [S] South [E] East [W] West [I] Room Info [B] Player Info [T <Item>] Take Item [D <Item>] Drop Item  [Q] Quit\n\n').lower().split(' ')
+    request = input('[N]-North [S]-South [E]-East [W]-West [I]-Room Info [B]-Backpack [T <Item>]-Take Item [D <Item>]-Drop Item  [Q]-Quit\n\n').lower().split(' ')
 
     if len(request) == 1:
         if request[0] == 'q':
@@ -120,7 +119,7 @@ while(playing):
             else: 
                 print('Invalid input')
         elif request[0] == 'drop':
-            droppedItem = character.drop(request[1])
+            droppedItem = character.dropItem(request[1])
             if droppedItem:
                 # Need to add the dropped item to the current room
                 currentRoom.dropItem(droppedItem)

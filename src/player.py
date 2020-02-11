@@ -15,9 +15,9 @@ class Player:
     def dropItem(self, item):
         if len(self.inventory) > 0:
             itemIndex = -1
-            for index, playerItem in enumerate(self.inventory):
-                if playerItem.name == item:
-                    itemIndex = item
+            for index, player_item in enumerate(self.inventory):
+                if player_item.name.lower() == item:
+                    itemIndex = index
             if itemIndex > -1:
                 droppedItem = self.inventory.pop(itemIndex)
                 return droppedItem
